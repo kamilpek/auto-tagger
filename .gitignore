@@ -35,5 +35,3 @@ build/
 ### otherrs ###
 .mvn
 logs
-src/main/resources/blacklist.properties
-src/main/resources/application.properties
