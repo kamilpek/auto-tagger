@@ -1,0 +1,30 @@
+version: '2'
+
+networks:
+  default:
+    external:
+      name: kps
+
+services:
+  auto-tagger:
+    build: .
+    volumes:
+      - './target:/opt/app'
+    mem_limit: 600m
+    ports:
+      - "8098:8098"
+    networks:
+      - default
+  mongo-db:
+    image: mongo:4.4.4
+    mem_limit: 600m
+    environment:
+      - MONGO_INITDB_DATABASE=solectwo
+      - MONGO_INITDB_ROOT_USERNAME=majster
+      - MONGO_INITDB_ROOT_PASSWORD=System32
+    ports:
+      - '27017-27019:27017-27019'
+    volumes:
+      - /root/mongo:/data/db
+    networks:
+      - default
