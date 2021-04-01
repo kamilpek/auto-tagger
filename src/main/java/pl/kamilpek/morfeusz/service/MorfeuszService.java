@@ -19,7 +19,7 @@ public class MorfeuszService {
     public Set<String> analyze(String text) {
         Set<String> articleTags = new TreeSet<>();
         Morfeusz instance = Morfeusz.createInstance();
-        String string = filter(text);
+        String string = filter(text.toLowerCase());
         ResultsIterator iterator = instance.analyseAsIterator(string);
         String orth = "";
         while(iterator.hasNext()) {

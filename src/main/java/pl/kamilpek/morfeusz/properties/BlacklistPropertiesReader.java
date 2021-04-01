@@ -7,6 +7,9 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -24,9 +27,12 @@ public class BlacklistPropertiesReader {
     }
 
     private Properties loadProperties() {
-        Resource resource = new ClassPathResource("/blacklist.properties");
+        Properties properties = new Properties();
         try {
-            return PropertiesLoaderUtils.loadProperties(resource);
+            InputStream is = getClass().getClassLoader().getResourceAsStream("blacklist.properties");
+            Reader reader = new InputStreamReader(is);
+            properties.load(reader);
+            return properties;
         } catch (IOException e) {
             log.error("Error during opening blacklist properties file: {}", e.getMessage());
         }

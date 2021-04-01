@@ -23,6 +23,6 @@ public class BlacklistPropertiesReaderTest {
     @Test
     public void testGetBlacklist() throws Exception {
         List<String> result = blacklistPropertiesReader.getBlacklist();
-        Assert.assertEquals(Arrays.asList("mieszkaniec","czytelnik","ala"), result);
+        Assert.assertEquals(Arrays.asList("mieszkaniec","czytelnik","ąęśćź"), result);
     }
 }

@@ -11,4 +11,7 @@ COPY ./target/auto-tagger.jar /opt/app/
 COPY ./src/main/resources/application.properties /opt/app/
 COPY ./logback.xml /opt/app/
 WORKDIR /opt/app
-CMD ["java", "-jar", "auto-tagger.jar"]
+ENV LANG pl_PL.UTF-8
+ENV LANGUAGE pl_PL.UTF-8
+ENV LC_ALL pl_PL.UTF-8
+CMD ["java", "-Dfile.encoding=UTF-8", "-jar", "auto-tagger.jar"]
