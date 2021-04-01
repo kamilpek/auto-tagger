@@ -10,6 +10,7 @@ import pl.kamilpek.morfeusz.dto.AnalyzeRequest;
 import pl.kamilpek.morfeusz.dto.GetTagsRequest;
 import pl.kamilpek.morfeusz.model.Tag;
 
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -34,14 +35,26 @@ public class ApiController {
     }
 
     @GetMapping("/getAllTags")
-    public ResponseEntity<List<Tag>> getAllTags() {
+    public ResponseEntity<List<String>> getAllTags() {
+        return ResponseEntity.ok(tagsFacade.getAllTags());
+    }
+
+    @GetMapping("/getTags")
+    public ResponseEntity<List<Tag>> getTags() {
         return ResponseEntity.ok(tagsFacade.getTags());
     }
 
     @GetMapping("/getTagsByUrl")
-    public ResponseEntity<List<Tag>> getTagsByUrl(@RequestBody GetTagsRequest getTagsRequest) {
+    public ResponseEntity<List<String>> getTagsByUrl(@RequestBody GetTagsRequest getTagsRequest) {
         log.info("GetTagsRequest [{}]", getTagsRequest.toString());
         return ResponseEntity.ok(tagsFacade.getTagsForUrl(getTagsRequest.getUrl()));
+    }
+
+    @GetMapping("/getTagsUrls/{tag}")
+    public ResponseEntity<List<String>> getTagsUrls(@PathVariable String tag) {
+        byte[] decodedBytes = Base64.getDecoder().decode(tag);
+        String decodedTag = new String(decodedBytes);
+        return ResponseEntity.ok(tagsFacade.getUrlsForTag(decodedTag));
     }
 
 }
